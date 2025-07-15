@@ -1,6 +1,7 @@
 
 # 🛍️ 콘솔 쇼핑몰 관리 시스템
-![Daily Fit Image](./Daily Fit.png)
+![Daily Fit](./Daily Fit.png)   
+
 Oracle DB와 Java를 기반으로 한 콘솔 기반 쇼핑몰 사용자/관리자 시스템입니다.
 
 ## 📌 프로젝트 개요
