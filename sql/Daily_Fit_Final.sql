@@ -1,16 +1,13 @@
-ALTER SESSION SET "_ORACLE_SCRIPT" = TRUE;
+ALTER SESSION SET CONTAINER = xepdb1;
 
-CREATE USER byjun32
-  IDENTIFIED BY "335130";
+CREATE USER byjun32 IDENTIFIED BY 335130;
   
-GRANT DBA TO byjun32;
+GRANT CONNECT, RESOURCE TO byjun32;
 
-ALTER USER byjun32 DEFAULT ROLE ALL;
-
-GRANT UNLIMITED TABLESPACE TO byjun32 WITH ADMIN OPTION; 
+ALTER USER byjun32 QUOTA UNLIMITED ON USERS;
 
 --***********************************************
---********************* ¿Ø¿˙ **********************
+--********************* Ïú†Ï†Ä **********************
 --************************************************`
 CREATE TABLE users (
     id        VARCHAR2(50)  PRIMARY KEY,   -- ?? ??? (?? ??, PK)
@@ -23,7 +20,7 @@ CREATE TABLE users (
 
 ALTER TABLE users ADD role VARCHAR2(20) DEFAULT 'USER';
 
--- ¿Ø¿˙ ª¿‘
+-- Ïú†Ï†Ä ÏÇΩÏûÖ
 INSERT INTO users (id, password, name, email, phone, role)
 VALUES ('admin', 'admin', 'sjp', 'admin@shop.com', '010-1111-2222', 'ADMIN');
 
@@ -32,7 +29,7 @@ select * from users;
 commit;
 
 --*********************************************
---******************* ªÛ«∞ **********************
+--******************* ÏÉÅÌíà **********************
 --*********************************************
 
 CREATE TABLE products (
@@ -51,13 +48,13 @@ CREATE SEQUENCE products_seq
     NOCACHE;
 
 INSERT INTO products (product_id, name, category, price, stock, product_size, color)
-VALUES (products_seq.nextval, '¿Ø¥œ≈¨∑Œ ∞°µ∞«', 'ªÛ¿«', 35000, 50, 'M', '∑πµÂ');
+VALUES (products_seq.nextval, 'Ïú†ÎãàÌÅ¥Î°ú Í∞ÄÎîîÍ±¥', 'ÏÉÅÏùò', 35000, 50, 'M', 'Î†àÎìú');
 
 INSERT INTO products (product_id, name, category, price, stock, product_size, color)
-VALUES (products_seq.nextval, 'ƒÆ«œ∆Æ »ƒµÂ¡˝æ˜', 'ªÛ¿«', 59000, 30, 'L', '∫Ì∑¢');
+VALUES (products_seq.nextval, 'ÏπºÌïòÌä∏ ÌõÑÎìúÏßëÏóÖ', 'ÏÉÅÏùò', 59000, 30, 'L', 'Î∏îÎûô');
 
 INSERT INTO products (product_id, name, category, price, stock, product_size, color)
-VALUES (products_seq.nextval, 'æ∆µ¥ŸΩ∫ ∆Æ∑π¿Ã¥◊ πŸ¡ˆ', '«œ¿«', 42000, 80, 'L', '∫Ì∑¢');
+VALUES (products_seq.nextval, 'ÏïÑÎîîÎã§Ïä§ Ìä∏Î†àÏù¥Îãù Î∞îÏßÄ', 'ÌïòÏùò', 42000, 80, 'L', 'Î∏îÎûô');
 
 ALTER TABLE products ADD description VARCHAR2(1000);
 
@@ -67,7 +64,7 @@ SELECT * FROM PRODUCTS;
 -- DROP SEQUENCE products_seq;
 -- drop table Products;
 --************************************************
---********************* ¿ÂπŸ±∏¥œ **********************
+--********************* Ïû•Î∞îÍµ¨Îãà **********************
 --************************************************
 
 CREATE TABLE cart (
@@ -87,7 +84,7 @@ CREATE OR REPLACE TRIGGER cart_trigger
 BEFORE INSERT ON cart
 FOR EACH ROW
 BEGIN
-    :new.cart_id := cart_seq.NEXTVAL; -- ? ¡˜¡¢ «“¥Á πÊΩƒ ªÁøÎ
+    :new.cart_id := cart_seq.NEXTVAL; -- ? ÏßÅÏ†ë Ìï†Îãπ Î∞©Ïãù ÏÇ¨Ïö©
 END;
 /
 -- ALTER TABLE cart ADD CONSTRAINT fk_cart_user FOREIGN KEY (user_id) REFERENCES users(id);
@@ -102,7 +99,7 @@ select * from cart;
 commit;
 
 --************************************************
---********************* ∏Æ∫‰ **********************
+--********************* Î¶¨Î∑∞ **********************
 --************************************************
 
 CREATE TABLE reviews (
@@ -117,7 +114,7 @@ CREATE TABLE reviews (
 CREATE SEQUENCE reviews_seq START WITH 1 INCREMENT BY 1;
 
 --************************************************
---********************* ¡÷πÆ **********************
+--********************* Ï£ºÎ¨∏ **********************
 --************************************************
 CREATE TABLE orders (
     order_id     NUMBER          PRIMARY KEY,
